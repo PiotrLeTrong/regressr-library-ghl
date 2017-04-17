@@ -8,7 +8,7 @@ summarizer <- function(x) {
     if (class(x[[i]]) == "factor"){
       x[[i]] <- as.character(x[[i]])
     }
-    if (grepl("[A-z]", x[[i]],  perl=TRUE) == FALSE){
+    if (grepl("[A-z]", x[[i]][1],  perl=TRUE) == FALSE){
       x[[i]] <- as.numeric(x[[i]])
     }
     
@@ -22,4 +22,12 @@ summarizer <- function(x) {
   output
 }
 
-summarizer(cfb.scoring)
+output <- summarizer(cfb.scoring)
+
+possibleModels <- function(df) {
+  intermed <- data.frame()
+  varTypes <- unique(df[[2]])
+  for(i in 1:length(varTypes)){
+    
+  }
+}
