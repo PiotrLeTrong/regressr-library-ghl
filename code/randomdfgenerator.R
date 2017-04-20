@@ -75,4 +75,6 @@ cfb.scoring <- merge(offense.scoring,
                      all = T)
 cfb.scoring$isCal <- 0
 cfb.scoring$isCal[cfb.scoring$Name == "California"] <- 1
+cfb.scoring$isStanford <- F
+cfb.scoring$isStanford[cfb.scoring$Name == "Stanford"] <- T
 save(cfb.scoring, file = "/Users/piotr/Dropbox/School/Spring 2017/670 Data Sci/DataSciProject/data/1.raw/footballdata.RData")
