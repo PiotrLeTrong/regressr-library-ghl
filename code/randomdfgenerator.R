@@ -86,4 +86,23 @@ cfb.scoring$isTexas <- "False"
 cfb.scoring$isTexas[cfb.scoring$Name == "Texas"] <- "True"
 cfb.scoring$SeasonStartDate <- as.Date(paste0("09/01/", cfb.scoring$year), "%m/%d/%Y")
 cfb.scoring$SeasonEndDate <- as.character(as.Date(paste0("01/09/", cfb.scoring$year+1), "%m/%d/%Y"))
+cfb.scoring$noDataChar <- NA
+cfb.scoring$noDataChar[sample(nrow(cfb.scoring), 
+                              size = round(0.5*nrow(cfb.scoring)), 
+                              replace = F)] <- "Data"
+cfb.scoring$noDataNum <- NA
+cfb.scoring$noDataNum[sample(nrow(cfb.scoring), 
+                              size = round(0.5*nrow(cfb.scoring)), 
+                              replace = F)] <- 1
+cfb.scoring$noDataLogi <- NA
+cfb.scoring$noDataLogi[sample(nrow(cfb.scoring), 
+                              size = round(0.25*nrow(cfb.scoring)), 
+                              replace = F)] <- TRUE
+cfb.scoring$noDataLogi[sample(nrow(cfb.scoring), 
+                              size = round(0.25*nrow(cfb.scoring)), 
+                              replace = F)] <- FALSE
+cfb.scoring$noDataDate <- as.Date(NA)
+cfb.scoring$noDataDate[sample(nrow(cfb.scoring), 
+                              size = round(0.5*nrow(cfb.scoring)), 
+                              replace = F)] <- as.Date(paste0("09/01/", cfb.scoring$year), "%m/%d/%Y")
 save(cfb.scoring, file = "/Users/piotr/Dropbox/School/Spring 2017/670 Data Sci/DataSciProject/data/1.raw/footballdata.RData")

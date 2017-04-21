@@ -3,9 +3,10 @@ load("/Users/piotr/Dropbox/School/Spring 2017/670 Data Sci/DataSciProject/data/1
 summarizer <- function(df){
   output <- data.frame()
   colcounter <- colnames(df)
+  colvector <- df[[i]]
   for(i in 1:ncol(df)){
-    if (class(df[[i]]) == "factor"){
-      df[[i]] <- as.character(df[[i]])
+    if (class(colvector[i]) == "factor"){
+      colvector[i] <- as.character(colvector[i])
     }
     if (grepl("-|/[^A-z]", df[[i]][1],  perl=TRUE) == TRUE & class(df[[i]]) !="Date"){
       if(grepl("-|[^A-z]", df[[i]][1],  perl=TRUE) == TRUE & class(df[[i]]) !="Date"){
