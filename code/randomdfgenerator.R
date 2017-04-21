@@ -73,8 +73,17 @@ cfb.scoring <- merge(offense.scoring,
                      defense.scoring,
                      by = c("Name", "year"),
                      all = T)
+#### We're just making as many combinations of T/F statements####
 cfb.scoring$isCal <- 0
 cfb.scoring$isCal[cfb.scoring$Name == "California"] <- 1
+cfb.scoring$isUCLA <- "0"
+cfb.scoring$isUCLA[cfb.scoring$Name == "UCLA"] <- "1"
 cfb.scoring$isStanford <- F
 cfb.scoring$isStanford[cfb.scoring$Name == "Stanford"] <- T
+cfb.scoring$isUSC <- "F"
+cfb.scoring$isUSC[cfb.scoring$Name == "USC"] <- "T"
+cfb.scoring$isTexas <- "False"
+cfb.scoring$isTexas[cfb.scoring$Name == "Texas"] <- "True"
+cfb.scoring$SeasonStartDate <- as.Date(paste0("09/01/", cfb.scoring$year), "%m/%d/%Y")
+cfb.scoring$SeasonEndDate <- as.character(as.Date(paste0("01/09/", cfb.scoring$year+1), "%m/%d/%Y"))
 save(cfb.scoring, file = "/Users/piotr/Dropbox/School/Spring 2017/670 Data Sci/DataSciProject/data/1.raw/footballdata.RData")
