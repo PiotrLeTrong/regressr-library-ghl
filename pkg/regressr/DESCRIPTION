@@ -1,0 +1,9 @@
+Package: regressr
+Version: 1.0
+Authors: Goss, Huang, and Le
+Description: Potatoes
+Depends: R (>= 3.3.2)
+License: MIT
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1

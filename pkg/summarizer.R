@@ -1,4 +1,13 @@
-summarizer_test <- function(df){
+#' A summary function
+#'
+#' This function allows you to express your love of cats.
+#' @param df This is where a data frame goes
+#' @keywords basic
+#' @export
+#' @examples
+#' summarizer()
+
+summarizer <- function(df){
   output <- data.frame()
   colcounter <- colnames(df)
   colVect <- c()
@@ -20,7 +29,6 @@ summarizer_test <- function(df){
     if (grepl("[A-z]", colVect[runif(1,1,length(colVect))],   perl=TRUE) == FALSE & class(df[[i]]) !="Date"){
       colVect <- as.numeric(colVect)
     }
-
     if (min(colVect) == 0 & max(colVect) == 1){
       colVect <- as.logical(colVect)
     }
@@ -30,7 +38,7 @@ summarizer_test <- function(df){
     output <- rbind(output,
                     data.frame(VarName = colcounter[i],
                                VarType = class(colVect),
-                               NumberofNAs = NumOfNA))
+                               NumberocfNAs = NumOfNA))
    }
   definitions <- data.frame(VarType = c("numeric",
                                         "character",
@@ -53,12 +61,3 @@ summarizer_test <- function(df){
   }
   writeLines("\n Ok, it looks like you are ready to run the second function of the library that will help you define the dependent and independent variables.")
 }
-
-    output <- rbind(output, 
-          data.frame(VarName = colcounter[i],
-                     VarType = class(x[[i]])))
-  }
-  output
-
-} #Look at GoogleDrive File for updates
-output <- summarizer(cfb.scoring)
