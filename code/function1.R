@@ -21,6 +21,7 @@ summarizer <- function(x) {
   }
   output
 }
+## date/time 
 
 output <- summarizer(cfb.scoring)
 
