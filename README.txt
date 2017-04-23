@@ -1,5 +1,7 @@
-Summary: Create ìregressrî an R library dedicated to helping user build regression models,
-providing text output to ease interpretation of the modelís results, and optimizing model
+Repository for the McCourt Data Science Project team: Goss, Huang, and Le
+
+Summary: Create ‚Äúregressr‚Äù an R library dedicated to helping user build regression models,
+providing text output to ease interpretation of the model‚Äôs results, and optimizing model
 specifications. The purpose of this library is to make the process of running regression modeling
 and coefficient interpretation easier for those unfamiliar with regressions.
 
@@ -24,12 +26,12 @@ Model Interpretation
 Function 3:
 
 Users input a data set and a formula of regression. The function runs the regression and
-outputs the coefficients of predictors and the modelís diagnostics, along with text
-interpretation for each parameters and explanation of the modelís various diagnostics. The
+outputs the coefficients of predictors and the model‚Äôs diagnostics, along with text
+interpretation for each parameters and explanation of the model‚Äôs various diagnostics. The
 interpretation will be based on model specifications -- log-log, lin-log, quadratics, VARs, etc. For
-instance, the function could describe what a coefficient means in terms of the userís
-independent and dependent variables, for example: ìa one unit change in x correlates with a B
-unit change in y.î Other text outputs could explain the meaning of a p-value and statistical
+instance, the function could describe what a coefficient means in terms of the user‚Äôs
+independent and dependent variables, for example: ‚Äúa one unit change in x correlates with a B
+unit change in y.‚Äù Other text outputs could explain the meaning of a p-value and statistical
 significance, the adjusted R-squared term or the cumulative significance of the model.
 
 Model Optimization

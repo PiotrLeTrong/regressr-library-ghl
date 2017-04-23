@@ -20,15 +20,8 @@ summarizer <- function(x) {
                      VarType = class(x[[i]])))
   }
   output
-}
-## date/time 
+
+} #Look at GoogleDrive File for updates
+
 
 output <- summarizer(cfb.scoring)
-
-possibleModels <- function(df) {
-  intermed <- data.frame()
-  varTypes <- unique(df[[2]])
-  for(i in 1:length(varTypes)){
-    
-  }
-}
