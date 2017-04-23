@@ -20,6 +20,8 @@ summarizer <- function(x) {
                      VarType = class(x[[i]])))
   }
   output
+
 } #Look at GoogleDrive File for updates
+
 
 output <- summarizer(cfb.scoring)
