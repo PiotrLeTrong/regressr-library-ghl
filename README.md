@@ -31,7 +31,6 @@ install.package("devtool")
  ```
 
 ## Usage
-TODO: Write usage instructions
 Note: If you're providing a new package or software, provide examples of how to use your code (example: https://github.com/CommerceDataService/eu.us.opendata). If you're providing an analytical output, describe what goes on each file or how to run it.
 #### summarizer
 ```
@@ -43,13 +42,12 @@ possibleModels(df)
 ```
 #### interpreter
 ```
-interpreter(modelType, dependentVar, independentVar, df, logDepen = F, logIndepen = NULL, squareIndepend = NULL)
+interpreter(df, modelType, dependentVar, independentVar, logDepen = F, logIndepen = NULL, squareIndepend = NULL)
 ```
 
 #### optimizer
 ```
 optimizer(df, dependentVar, independentVar = colnames(df)[colnames(df) != dependentVar], include = NULL,
-
           model = c("OLS", "binary probit", "binary logit", "ordered probit", "ordered logit", "multinomial logit", "multinomial probit"),
           quadratic = NULL, cubic = NULL,
           time.series = FALSE, time.var = NULL, save.csv = FALSE)
@@ -61,18 +59,21 @@ optimizer(df, dependentVar, independentVar = colnames(df)[colnames(df) != depend
  Write history in bullet form of what progress has been made and when.
  * Proposal submitted, 3/31/2017
  * Project mock code agreed upon, 4/18/2017
+ * Built a mock dataset, 4/15/2017
+  * Created code that generates a dataset, 4/15/2017
+  * Added more variable types to check code robustntess. 4/22/2017
  * Function 1 - summarizer
-<<<<<<< HEAD
-   *  
-=======
-
->>>>>>> origin/yh
+  * Started, 4/15/2017
+  * Basic Code Structure Finalized, 4/19/2017
+  * Finalized, 4/23/2017
+  * Robustness Checks, in Progress 4/23/2017
  * Function 2 - possibleModels
- * Function 3 - interpreter
+  * Started, 4/15/2017
+ * Function 3 - interpreter started
+  * Started, 4/22/2017
  * Function 4 - optimizer
   * Base function created, 4/20/2017
   * More user input options added, 4/23/2017
-
 
 
 
@@ -85,7 +86,7 @@ Credits: Jeff Chen, Dan Hammer :hammer:
 ## License
 MIT License
 
-Copyright (c) 2017 PiotrLeTrong
+Copyright (c) 2017 Goss, Huang, and Le
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
