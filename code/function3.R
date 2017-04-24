@@ -1,6 +1,6 @@
 rm(list = ls())
 load("/Users/piotr/Dropbox/School/Spring 2017/670 Data Sci/DataSciProject/data/1.raw/footballdata.RData")
-
+# test test test
 functiontres <- function(df,
                         modelType, 
                         dependentVar, 
