@@ -1,10 +1,10 @@
 rm(list = ls())
 load("/Users/piotr/Dropbox/School/Spring 2017/670 Data Sci/DataSciProject/data/1.raw/footballdata.RData")
 
-functiontres <- function(modelType, 
-                         dependentVar, 
-                         independentVar, 
-                         df,
+functiontres <- function(df,
+                        modelType, 
+                        dependentVar, 
+                        independentVar, 
                         logDepen = F, 
                         logIndepen = NULL, 
                         squareIndepend = NULL){
