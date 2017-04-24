@@ -47,23 +47,20 @@ interpreter(modelType, dependentVar, independentVar, df, logDepen = F, logIndepe
 #### optimizer
 ```
 optimizer(df, dependentVar, independentVar = colnames(df)[colnames(df) != dependentVar], include = NULL,
-                           model = c("OLS", "binary probit", "binary logit", "ordered probit", "ordered logit", "multinomial logit", "multinomial probit"),
-                           quadratic = NULL, cubic = NULL,
-                           time.series = FALSE, time.var = NULL, save.csv = FALSE)
+          model = c("OLS", "binary probit", "binary logit", "ordered probit", "ordered logit", "multinomial logit", "multinomial probit"),
+          quadratic = NULL, cubic = NULL,
+          time.series = FALSE, time.var = NULL, save.csv = FALSE)
 ```
 
 ## Progress Log
  Write history in bullet form of what progress has been made and when.
  * Project mock code, 4/18/2017
  * Function 1 - summarizer
-   *  
  * Function 2 - possibleModels
-  *
  * Function 3 - interpreter
-  *
  * Function 4 - optimizer
-  * base function crated, 4/20/2017
-  * added more input options. 4/23/2017
+  * base function created, 4/20/2017
+  * added more user input options. 4/23/2017
 
 
 
