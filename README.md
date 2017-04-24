@@ -60,20 +60,20 @@ optimizer(df, dependentVar, independentVar = colnames(df)[colnames(df) != depend
  * Proposal submitted, 3/31/2017
  * Project mock code agreed upon, 4/18/2017
  * Built a mock dataset, 4/15/2017
-  * Created code that generates a dataset, 4/15/2017
-  * Added more variable types to check code robustntess. 4/22/2017
+     * Created code that generates a dataset, 4/15/2017
+     * Added more variable types to check code robustntess. 4/22/2017
  * Function 1 - summarizer
-  * Started, 4/15/2017
-  * Basic Code Structure Finalized, 4/19/2017
-  * Finalized, 4/23/2017
-  * Robustness Checks, in Progress 4/23/2017
+     * Started, 4/15/2017
+     * Basic Code Structure Finalized, 4/19/2017
+     * Finalized, 4/23/2017
+     * Robustness Checks, in Progress 4/23/2017
  * Function 2 - possibleModels
-  * Started, 4/15/2017
+     * Started, 4/15/2017
  * Function 3 - interpreter started
-  * Started, 4/22/2017
+     * Started, 4/22/2017
  * Function 4 - optimizer
-  * Base function created, 4/20/2017
-  * More user input options added, 4/23/2017
+     * Base function created, 4/20/2017
+     * More user input options added, 4/23/2017
 
 
 
