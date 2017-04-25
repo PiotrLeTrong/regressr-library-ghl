@@ -1,5 +1,5 @@
 rm(list = ls())
-load("/Users/piotr/Dropbox/School/Spring 2017/670 Data Sci/DataSciProject/data/1.raw/footballdata.RData")
+load("/Users/piotr/Dropbox/School/Spring 2017/670 Data Sci/regressr-library-ghl/data/1.raw/footballdata.RData")
 # test test test
 functiontres <- function(df,
                         modelType, 
@@ -55,6 +55,16 @@ functiontres <- function(df,
 }
 cfb.scoring.tiny <- cfb.scoring[,1:4]
 
+testa  <- function(df, dependVar){
+  dependVar <- deparse(substitute(dependVar))
+  df[, dependVar]
+}
+
+test <- function(dfx, dependVarx){
+  testa(dfx, dependVarx)
+}
 test(cfb.scoring, offensive.G)
+
+testa(cfb.scoring, offensive.G)
 
 functiontres(ols, offensive.G, offensive.TD, cfb.scoring.tiny, T)
