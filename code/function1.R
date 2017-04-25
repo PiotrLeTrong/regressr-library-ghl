@@ -53,12 +53,4 @@ summarizer_test <- function(df){
   }
   writeLines("\n Ok, it looks like you are ready to run the second function of the library that will help you define the dependent and independent variables.")
 }
-
-    output <- rbind(output, 
-          data.frame(VarName = colcounter[i],
-                     VarType = class(x[[i]])))
-  }
-  output
-
-} #Look at GoogleDrive File for updates
-output <- summarizer(cfb.scoring)
+summarizer_test(cfb.scoring)

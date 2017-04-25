@@ -38,7 +38,6 @@ interpreter <- function(df,
     }
   }
   modelSpec <- paste(dependentVar, "~", paste(independentVar, collapse = " + "))
-  modelSpec
   if(modelType == "ols"){
     output <- lm(noquote(modelSpec), df)
     summary(output)
@@ -58,10 +57,29 @@ interpreter <- function(df,
                          " does not have  a statistically significant relationship with the dependent variable"))
       }
     }
-  # } else if (modelType == "probit") {
-  #   
-  # } else if (modelType == "logit") {
-  #   
+  } else if (modelType == "probit") {
+    output <- glm(formula = noquote(modelSpec), family = binomial(link = "probit"), data = df)
+    summary(output)
+    varNames <-   row.names(coef(summary(output)))
+    coefficients <- as.numeric(coef(summary(output))[,1])
+    error <- as.numeric(coef(summary(output))[,2])
+    tVal <- as.numeric(coef(summary(output))[,3])
+    pVal <- as.numeric(coef(summary(output))[,4])
+    for(i in 2:length(varNames)){
+      if(pVal[i] < 1.95){
+        writeLines(paste("In this regression the independent variable", varNames[i],
+                         " has a statistically significant impact on the dependent variable",
+                         "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]),
+                         "increase in the dependent variable. \n"))
+      } else {
+        writeLines(paste("In this regression the independent variable", varNames[i],
+                         " does not have  a statistically significant relationship with the dependent variable"))
+      }
+    }
+  } else if (modelType == "logit") {
+    output <- glm(formula = noquote(modelSpec), family = binomial(link = "logit"), data = df)
+    summary(output)
+    
   # } else if (modelType == "tobit") {
   #   
   # } else if (modelType == "multinominal probit") {
@@ -80,13 +98,54 @@ interpreter <- function(df,
 }
 
 test <- function(df,
-                        modelType, 
-                        dependentVar, 
-                        independentVar){
-  #dependentVar <- deparse(substitute(dependentVar))
-  #independentVar <- deparse(substitute(independentVar))
-  
-
+                 modelType, 
+                 dependentVar, 
+                 independentVar, 
+                 logDepen = F, 
+                 logIndepen = NULL, 
+                 squareIndepend = NULL){
+  modelSpec <- paste(dependentVar, "~", paste(independentVar, collapse = " + "))
+  if (modelType == "probit") {
+    output <- glm(formula = noquote(modelSpec), family = binomial(link = "probit"), data = df)
+    summary(output)
+    varNames <-   row.names(coef(summary(output)))
+    coefficients <- as.numeric(coef(summary(output))[,1])
+    error <- as.numeric(coef(summary(output))[,2])
+    tVal <- as.numeric(coef(summary(output))[,3])
+    pVal <- as.numeric(coef(summary(output))[,4])
+    print(coefficients)
+    print(error)
+    print(tVal)
+    print(pVal)
+    print(summary(output))
+  } else if (modelType == "logit"){
+    output <- glm(formula = noquote(modelSpec), family = binomial(link = "logit"), data = df)
+    summary(output)
+    varNames <-   row.names(coef(summary(output)))
+    coefficients <- as.numeric(coef(summary(output))[,1])
+    error <- as.numeric(coef(summary(output))[,2])
+    tVal <- as.numeric(coef(summary(output))[,3])
+    pVal <- as.numeric(coef(summary(output))[,4])
+    print(coefficients)
+    print(error)
+    print(tVal)
+    print(pVal)
+    print(summary(output))
+    }
 }
 
-interpreter(df = cfb.scoring, modelType = "ols", dependentVar = "offensive.TD", independentVar =  c("defensive.TD", "defensive.FG"))
+
+interpreter(df = cfb.scoring, 
+            modelType = "ols", 
+            dependentVar = "offensive.TD", 
+            independentVar =  c("defensive.TD", "defensive.FG"))
+
+test(df = cfb.scoring, 
+            modelType = "probit",
+            dependentVar = "isCal", 
+            independentVar =  c("defensive.TD", "defensive.FG"))
+
+test(df = cfb.scoring, 
+            modelType = "logit",
+            dependentVar = "isCal", 
+            independentVar =  c("defensive.TD", "defensive.FG"))
