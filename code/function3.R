@@ -76,9 +76,28 @@ interpreter <- function(df,
                          " does not have  a statistically significant relationship with the dependent variable"))
       }
     }
-  } else if (modelType == "logit") {
+  } else if (modelType == "logit"){
     output <- glm(formula = noquote(modelSpec), family = binomial(link = "logit"), data = df)
     summary(output)
+    varNames <-   row.names(coef(summary(output)))
+    coefficients <- as.numeric(coef(summary(output))[,1])
+    error <- as.numeric(coef(summary(output))[,2])
+    tVal <- as.numeric(coef(summary(output))[,3])
+    pVal <- as.numeric(coef(summary(output))[,4])
+    for(i in 2:length(varNames)){
+      if(pVal[i] < 1.95){
+        marginpctchange <- (exp(coefficients[i]) - 1)*100
+        baselinepct <-(exp(coefficients[1]) - 1)*100
+        writeLines(paste("In this regression the independent variable", varNames[i],
+                         " has a statistically significant impact on the dependent variable",
+                         "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",marginpctchange),
+                         "percentage increase in the dependent variable. All of this is based on a baseline probability of"
+                         ,sprintf("%.3f",baselinepct),"\n"))
+      } else {
+        writeLines(paste("In this regression the independent variable", varNames[i],
+                         " does not have  a statistically significant relationship with the dependent variable"))
+      }
+    }
     
   # } else if (modelType == "tobit") {
   #   
@@ -118,20 +137,21 @@ test <- function(df,
     print(tVal)
     print(pVal)
     print(summary(output))
-  } else if (modelType == "logit"){
-    output <- glm(formula = noquote(modelSpec), family = binomial(link = "logit"), data = df)
-    summary(output)
-    varNames <-   row.names(coef(summary(output)))
-    coefficients <- as.numeric(coef(summary(output))[,1])
-    error <- as.numeric(coef(summary(output))[,2])
-    tVal <- as.numeric(coef(summary(output))[,3])
-    pVal <- as.numeric(coef(summary(output))[,4])
-    print(coefficients)
-    print(error)
-    print(tVal)
-    print(pVal)
-    print(summary(output))
+    for(i in 2:length(varNames)){
+      if(pVal[i] < 1.95){
+        marginpctchange <- coefficients[i]
+        baselinepct 
+        writeLines(paste("In this regression the independent variable", varNames[i],
+                         " has a statistically significant impact on the dependent variable",
+                         "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",marginpctchange),
+                         "percentage increase in the dependent variable. All of this is based on a baseline probability of"
+                         ,sprintf("%.3f",baselinepct),"\n"))
+      } else {
+        writeLines(paste("In this regression the independent variable", varNames[i],
+                         " does not have  a statistically significant relationship with the dependent variable"))
+      }
     }
+  } 
 }
 
 
@@ -142,10 +162,5 @@ interpreter(df = cfb.scoring,
 
 test(df = cfb.scoring, 
             modelType = "probit",
-            dependentVar = "isCal", 
-            independentVar =  c("defensive.TD", "defensive.FG"))
-
-test(df = cfb.scoring, 
-            modelType = "logit",
             dependentVar = "isCal", 
             independentVar =  c("defensive.TD", "defensive.FG"))
