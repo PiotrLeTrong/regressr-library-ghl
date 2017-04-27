@@ -1,24 +1,38 @@
-rm(list = ls())
-load("/Users/piotr/Dropbox/School/Spring 2017/670 Data Sci/DataSciProject/data/1.raw/footballdata.RData")
+#Data Science Final Project
 
-
-possibleModels <- function(df) {
-  require(plyr)
-  compTable <- data.frame(VarType = c("numeric",
-                                      "character",
-                                      "factor",
-                                      "date",
-                                      "logical"),
-                          Count = 0)
-  intermed <- data.frame()
-  intermed <- plyr::count(df, vars = colnames(df)[2])
-  intermed <- merge(compTable, intermed, by = "VarType", all.x = T)
-  intermed <- intermed[complete.cases(intermed$freq),] 
-  text <- c()
-  for(i in 1:nrow(intermed)){
-    text <- paste(text, "We have ", intermed[i,3], " instaces of the variable type ", intermed[i,1],". \n" ,sep = "")
+#User inputs a dependent variable
+dvaluator <- function(depvar, order = F, panel = F) {
+  if (is.numeric(depvar) == T) {
+    print("Your dependent variable is continuous, like age and temperature, continuous variables move along a potentially infinite range. 
+          I recommend you use Orindary Least Squares Regression. This model type is intuitive
+          to interpret and minimizes the error between observed data and our predictions by projecting a linear relationship between the dependent and independenet variables.")
+  }else if (is.logical(depvar) == T | (depvar >= 0 & depvar <= 1)) {
+    print("Your dependent variable is binary, meaning it has only two outcomes such as on and off, true or false.
+close(0 at the minimum, and 1 at the maximum. Note: The coefficients cannot be interpreted directly; they must be converted to odds ratios or marginal effects.")
+  }else if (is.factor(depvar) == T & order == F) {
+    print("Your dependent variable is categorical; it represents discrete categories without a clear order like 
+data with a series of S-shaped curves originating near 0 and terminating near 1. Like a logit model,
+          this model outputs coefficients that cannot be interpreted directly and must be converted to
+          odds ratios or marginal effects.")
+  }else if (is.factor(depvar) == T & order == T) {
+    print("Your dependent variable is ordinal; it is divided into discrete categories that follow a clear order.
+          Examples of ordinal variables include Likert Scales: Agree, Neutral, Disagree; and class rankings: 1st, 2nd, 3rd, etc.
+          I recommend using an ordered probit regression, it represents discrete categories without a clear order like 
+data with a series of S-shaped curves originating near 0 and terminating near 1. Coefficients cannot be interpreted directly, but
+          positive coefficients indicate movement towards the higher end of the dependent variable, whie negative coefficients signal a move
+          toward a lower level of the dependent variable.")
+    #What did we decide we wanted to do for Tobit again?
+  }else if (is.numeric(depvar) == T & panel == T) {
+    print("You indicated you have panel data: data that tracks multiple observations across multiple points in time.
+          I recommend using a fixed-effects model. Fixed-effects assumes there are certain characteristics
+          of an independent varaible that do not change over time. For example if the independent variable is a city,
+          we might expect its demography or statutes to not vary significantly from one day to the next. Fixed-effects
+          lets us control for these unchanging but relevant factors, even if we don't have specific data on those factors. Warning:
+          if a feature of your data happens to be one of these unchanging features, you will not be able to observe those characteristics in a fixed-effects model.")
   }
-  writeLines(text)
-  
+  print("Now that you know the nature of you dependent variable and what model you'd like to run, I recommend
+        using the next function in the library, (name of function). All you have to do is feed it a dependent variable and a
+        set of independent variables. A dependent variable is the outcome variable you want to know something about. The independent variables
+        are those factors you think explain your dependent variable. For instance, if I'm interested in test scores, the scores would be
+        my dependent variable, and my independent variables might be data on the test takers and the schools they attend.")
 }
-possibleModels(output)

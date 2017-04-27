@@ -1,14 +1,6 @@
 rm(list = ls())
 load("/Users/piotr/Dropbox/School/Spring 2017/670 Data Sci/regressr-library-ghl/data/1.raw/footballdata.RData")
 
-for(i in 1:ncol(cfb.scoring)){
-  if(class(cfb.scoring[[i]]) == "factor"){
-    cfb.scoring[[i]] <- as.character(cfb.scoring[[i]])
-  }
-  if(grepl("[0-9]", cfb.scoring[[i]])==TRUE | cfb.scoring[[i]]==""){
-    cfb.scoring[[i]] <- as.numeric(cfb.scoring[[i]])
-  }
-}
 # test test test
 interpreter <- function(df,
                         modelType, 
@@ -149,8 +141,8 @@ interpreter <- function(df,
 }
 
 
+
 interpreter(df = cfb.scoring, 
             modelType = "probit",
             dependentVar = "isCal", 
             independentVar =  c("defensive.TD", "defensive.FG"))
-
