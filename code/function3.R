@@ -65,12 +65,44 @@ interpreter <- function(df,
     error <- as.numeric(coef(summary(output))[,2])
     tVal <- as.numeric(coef(summary(output))[,3])
     pVal <- as.numeric(coef(summary(output))[,4])
+    print(coefficients)
+    print(error)
+    print(tVal)
+    print(pVal)
+    print(summary(output))
     for(i in 2:length(varNames)){
       if(pVal[i] < 1.95){
-        writeLines(paste("In this regression the independent variable", varNames[i],
-                         " has a statistically significant impact on the dependent variable",
-                         "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]),
-                         "increase in the dependent variable. \n"))
+        if(class(df[,varNames[i]]) == "logical"){
+          for(j in 2:length(varNames)){
+            if(i!=j){
+              a <- coefficients[j] * mean(df[, varNames[j]])
+            }
+          }
+          marginpctchange <-pnorm(a + coefficients[i] * (1 * mean(df[, varNames[i]]))) - pnorm(coefficients[i] * (0 *mean(df[, varNames[i]])))
+          
+          baselinepct <- pnorm(coefficients[1])
+          writeLines(paste("In this regression the independent variable", varNames[i],
+                           " has a statistically significant impact on the dependent variable",
+                           "a 1 Standard Deviation increase in the independent variable causes a ", sprintf("%.3f",marginpctchange),
+                           "percentage increase in the dependent variable. All of this is based on a baseline probability of"
+                           ,sprintf("%.3f",baselinepct),"\n"))
+        } else {
+          for(j in 2:length(varNames)){
+            if(i!=j){
+              a <- coefficients[j] * mean(df[, varNames[j]])
+            }
+          }
+          marginpctchange <-pnorm(a + coefficients[i] * (sd(df[, varNames[i]]) + mean(df[, varNames[i]]))) - pnorm(a + coefficients[i] * mean(df[, varNames[i]]))
+          
+          baselinepct <- pnorm(coefficients[1])
+          writeLines(paste("In this regression the independent variable", varNames[i],
+                           " has a statistically significant impact on the dependent variable",
+                           "a 1 Standard Deviation increase in the independent variable causes a ", sprintf("%.3f",marginpctchange),
+                           "percentage increase in the dependent variable. All of this is based on a baseline probability of"
+                           ,sprintf("%.3f",baselinepct),"\n"))
+          
+          
+        }
       } else {
         writeLines(paste("In this regression the independent variable", varNames[i],
                          " does not have  a statistically significant relationship with the dependent variable"))
@@ -116,51 +148,9 @@ interpreter <- function(df,
   }
 }
 
-test <- function(df,
-                 modelType, 
-                 dependentVar, 
-                 independentVar, 
-                 logDepen = F, 
-                 logIndepen = NULL, 
-                 squareIndepend = NULL){
-  modelSpec <- paste(dependentVar, "~", paste(independentVar, collapse = " + "))
-  if (modelType == "probit") {
-    output <- glm(formula = noquote(modelSpec), family = binomial(link = "probit"), data = df)
-    summary(output)
-    varNames <-   row.names(coef(summary(output)))
-    coefficients <- as.numeric(coef(summary(output))[,1])
-    error <- as.numeric(coef(summary(output))[,2])
-    tVal <- as.numeric(coef(summary(output))[,3])
-    pVal <- as.numeric(coef(summary(output))[,4])
-    print(coefficients)
-    print(error)
-    print(tVal)
-    print(pVal)
-    print(summary(output))
-    for(i in 2:length(varNames)){
-      if(pVal[i] < 1.95){
-        marginpctchange <- coefficients[i]
-        baselinepct 
-        writeLines(paste("In this regression the independent variable", varNames[i],
-                         " has a statistically significant impact on the dependent variable",
-                         "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",marginpctchange),
-                         "percentage increase in the dependent variable. All of this is based on a baseline probability of"
-                         ,sprintf("%.3f",baselinepct),"\n"))
-      } else {
-        writeLines(paste("In this regression the independent variable", varNames[i],
-                         " does not have  a statistically significant relationship with the dependent variable"))
-      }
-    }
-  } 
-}
-
 
 interpreter(df = cfb.scoring, 
-            modelType = "ols", 
-            dependentVar = "offensive.TD", 
-            independentVar =  c("defensive.TD", "defensive.FG"))
-
-test(df = cfb.scoring, 
             modelType = "probit",
             dependentVar = "isCal", 
             independentVar =  c("defensive.TD", "defensive.FG"))
+
