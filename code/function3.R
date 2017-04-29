@@ -9,6 +9,22 @@ for(i in 1:ncol(cfb.scoring)){
     cfb.scoring[[i]] <- as.numeric(cfb.scoring[[i]])
   }
 }
+package.test <- function(package){
+  for(p in 1:length(package)){
+    test <- c()
+    test <- installed.packages()[,1] == package[p]
+    if (any(test) == TRUE){
+      pack <- package[p]
+      require(pack, character.only = TRUE)
+    } else {
+      pack <- package[p]
+      install.packages(package[p])
+      require(pack, character.only = TRUE)
+    }
+  }
+}
+
+package.test(c("digest", "AER"))
 # test test test
 interpreter <- function(df,
                         modelType, 
@@ -147,10 +163,57 @@ interpreter <- function(df,
                \n - multinominal logit")
   }
 }
+test <- function(df,
+                 modelType, 
+                 dependentVar, 
+                 independentVar, 
+                 leftCensor = -Inf,
+                 rightCensor = Inf,
+                 logDepen = F, 
+                 logIndepen = NULL, 
+                 squareIndepend = NULL){
+  modelSpec <- paste(dependentVar, "~", paste(independentVar, collapse = " + "))
+  output <- tobit(formula = modelSpec, data = df, left = leftCensor , right = rightCensor)
+  # if (modelType == "tobit"){
+  #   if (leftCensor != -Inf | rightCensor != Inf){
+  # 
+  #   } else {
+  #   writeLines("No censors inputted, please insert the left or ight limit for the tobit model to run.
+  #               If there are no censors and it is a binominal model, then please run logit/probit with 0-1 dependent variable")
+  #   }
+  #   }
+}
 
 
-interpreter(df = cfb.scoring, 
-            modelType = "probit",
-            dependentVar = "isCal", 
-            independentVar =  c("defensive.TD", "defensive.FG"))
+  
+test <- function(df,
+                 modelType, 
+                 dependentVar, 
+                 independentVar, 
+                 leftCensor = -Inf,
+                 rightCensor = Inf,
+                 logDepen = F, 
+                 logIndepen = NULL, 
+                 squareIndepend = NULL){
+  modelSpec <- dependentVar
+  modelSpec1 <- paste(independentVar, collapse = " + ")
+  
+}
 
+output <- test(df = cfb.scoring, 
+     modelType = "tobit",
+     dependentVar = "isCal", 
+     independentVar =  c("defensive.TD", "defensive.FG"),
+     leftCensor = 0)
+modelSpec <- "isCal"
+modelSpec1 <- paste( c("defensive.TD", "defensive.FG"), collapse = " + ") 
+modelSpec2 <- paste("isCal", "~", paste( c("defensive.TD", "defensive.FG"), collapse = " + "))
+output <-
+  tobit(
+    formula = modelSpec2 ,
+    data = cfb.scoring,
+    left = 0 ,
+    right = Inf
+  )
+
+output1 <- tobit(formula = as.formula(noquote(modelSpec2)) , data = modelSpec2, left = 0 , right = Inf)
