@@ -64,6 +64,22 @@ interpreter <- function(df,
     pVal <- as.numeric(coef(summary(output))[,4])
     for(i in 2:length(varNames)){
       if(pVal[i] < 1.95){
+        if(logDepen == T & length(logIndepen) > 0){
+          writeLines(paste("In this regression the independent variable", varNames[i],
+                           " has a statistically significant impact on the dependent variable",
+                           "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]),
+                           "percentage increase in the dependent variable. \n"))
+        } else if (logDepen == T & length(logIndepen) == 0){
+          writeLines(paste("In this regression the independent variable", varNames[i],
+                           " has a statistically significant impact on the dependent variable",
+                           "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]),
+                           "increase in the dependent variable. \n"))
+        } else if (logDepen == F & length(logIndepen) > 0){
+          writeLines(paste("In this regression the independent variable", varNames[i],
+                           " has a statistically significant impact on the dependent variable",
+                           "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]),
+                           "increase in the dependent variable. \n"))
+        } else if (logDepen == F & length(logIndepen) == 0){
         writeLines(paste("In this regression the independent variable", varNames[i],
                          " has a statistically significant impact on the dependent variable",
                          "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]),
@@ -71,6 +87,7 @@ interpreter <- function(df,
       } else {
         writeLines(paste("In this regression the independent variable", varNames[i],
                          " does not have  a statistically significant relationship with the dependent variable"))
+      }
       }
     }
   } else if (modelType == "probit") {
@@ -200,20 +217,7 @@ test <- function(df,
   
 }
 
-output <- test(df = cfb.scoring, 
-     modelType = "tobit",
+output <- interpreter(df = cfb.scoring, 
+     modelType = "logit",
      dependentVar = "isCal", 
-     independentVar =  c("defensive.TD", "defensive.FG"),
-     leftCensor = 0)
-modelSpec <- "isCal"
-modelSpec1 <- paste( c("defensive.TD", "defensive.FG"), collapse = " + ") 
-modelSpec2 <- paste("isCal", "~", paste( c("defensive.TD", "defensive.FG"), collapse = " + "))
-output <-
-  tobit(
-    formula = modelSpec2 ,
-    data = cfb.scoring,
-    left = 0 ,
-    right = Inf
-  )
-
-output1 <- tobit(formula = as.formula(noquote(modelSpec2)) , data = modelSpec2, left = 0 , right = Inf)
+     independentVar =  c("defensive.TD", "defensive.FG"))
