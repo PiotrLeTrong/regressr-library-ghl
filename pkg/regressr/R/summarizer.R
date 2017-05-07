@@ -1,10 +1,10 @@
 #' A summary function
 #'
-#' This fuction is the first of four fuctions created to make regressions easier. 
-#' @param df This is where a data frame goes
-#' @keywords basic
+#' This function gives someone a sky-in-the-eye view of the data as it looks into the structure of the data frame and gives reccomendations.
+#' @param df This is where a data frame goes. Not a lot of science here. 
+#' @keywords 
 #' @export
-#' @examples 
+#' @examples
 #' summarizer()
 
 summarizer <- function(df){

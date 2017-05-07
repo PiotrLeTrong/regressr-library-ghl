@@ -1,38 +1,20 @@
-rm(list = ls())
-load("/Users/piotr/Dropbox/School/Spring 2017/670 Data Sci/regressr-library-ghl/data/1.raw/footballdata.RData")
-
-
-for(i in 1:ncol(cfb.scoring)){
-  if(class(cfb.scoring[[i]]) == "factor"){
-    cfb.scoring[[i]] <- as.character(cfb.scoring[[i]])
-  }
-  if(grepl("[0-9]", cfb.scoring[[i]])==TRUE | cfb.scoring[[i]]==""){
-    cfb.scoring[[i]] <- as.numeric(cfb.scoring[[i]])
-  }
-}
-package.test <- function(package){
-  for(p in 1:length(package)){
-    test <- c()
-    test <- installed.packages()[,1] == package[p]
-    if (any(test) == TRUE){
-      pack <- package[p]
-      require(pack, character.only = TRUE)
-    } else {
-      pack <- package[p]
-      install.packages(package[p])
-      require(pack, character.only = TRUE)
-    }
-  }
-}
-
-package.test(c("digest", "AER"))
-
+#' Interpretation Function
+#'
+#' This function's main use is to run regressions and then returns interpretation of the model.
+#' @param modelType What type of a regression model would you like to use? Defaults to "none"
+#' @param df Define data frame.
+#' @param dependentVar Insert the string value of the dependent variable you wish to use in this model.
+#' @param independentVar Insert the vectors of string values of the independent variables you wish to use in this model.
+#' @param logDepen Would you like to take the natural log of the dependent variable. Defaults to FALSE.
+#' @param logIndepen Insert a string vector of independent variables that you would like to take the natural log of. Defaults to NULL.
+#' @param squareIndepend Insert a string vector of independent variables that you would like to take the square of. Defaults to NULL.
+#' @param detail Whether or not you would like to take the detailed output from the regressions.
+#' @keywords cats
+#' @export
+#' @examples
+#' 
 interpreter <- function(modelType = "none",
                         df,
-
-# test test test
-interpreter <- function(df,
-                        modelType, 
                         dependentVar, 
                         independentVar, 
                         logDepen = F, 
@@ -71,7 +53,7 @@ interpreter <- function(df,
   }
   if(length(squareIndepend) > 0){
     modelSpec <- paste(dependentVar, "~", paste(indepVar,  collapse = " + "))
-    } else {
+  } else {
     modelSpec <- paste(dependentVar, "~", paste(independentVar, collapse = " + "))
   }
   if(modelType == "ols"){
@@ -101,11 +83,11 @@ interpreter <- function(df,
                            "a 1 percent increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]/100),
                            "increase in the dependent variable. \n"))
         } else if (logDepen == F & length(logIndepen) == 0 & length(squareIndepend) == 0 ){
-        writeLines(paste("In this regression the independent variable", varNames[i],
-                         " has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
-                         "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]),
-                         "increase in the dependent variable. \n"))
-
+          writeLines(paste("In this regression the independent variable", varNames[i],
+                           " has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
+                           "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]),
+                           "increase in the dependent variable. \n"))
+          
         } else if (length(squareIndepend) > 0){
           if(grepl(".square", varNames[i])){
             temp <- c()
@@ -123,12 +105,12 @@ interpreter <- function(df,
                              " has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
                              "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]),
                              "increase in the dependent variable. \n"))
-
-        } else {
-        writeLines(paste("In this regression the independent variable", varNames[i],
-                         " does not have a statistically significant relationship (at a 95% level of confidence) with the dependent variable. \n"))
-      }
-      }
+            
+          } else {
+            writeLines(paste("In this regression the independent variable", varNames[i],
+                             " does not have a statistically significant relationship (at a 95% level of confidence) with the dependent variable. \n"))
+          }
+        }
       }
     }
   } else if (modelType == "probit") {
@@ -197,21 +179,21 @@ interpreter <- function(df,
               a <- coefficients[j] * mean(df[, varNames[j]])
             }
           }
-        marginpctchange_a <- exp(a + coefficients[i] * (sd(df[, varNames[i]]) + mean(df[, varNames[i]])))
-        marginpctchange_b <- exp(a + coefficients[i] * (sd(df[, varNames[i]]) + mean(df[, varNames[i]]))) + 1
-        marginpctchange_c <- marginpctchange_a/marginpctchange_b
-        basepctchange_a <- exp(a + coefficients[i] * mean(df[, varNames[i]])) 
-        basepctchange_b <- exp(a + coefficients[i] * mean(df[, varNames[i]])) + 1
-        basepctchange_c <- basepctchange_a/basepctchange_b
-        marginpctchange <- marginpctchange_c - basepctchange_c
-        
-        baselinepct <-(exp(coefficients[1])/(1 + exp(coefficients[1])))
-                       
-        writeLines(paste("In this regression the independent variable", varNames[i],
-                         " has a statistically significant impact on the dependent variable",
-                         "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",marginpctchange),
-                         "percentage increase in the dependent variable. All of this is based on a baseline probability of"
-                         ,sprintf("%.3f",baselinepct),"\n"))
+          marginpctchange_a <- exp(a + coefficients[i] * (sd(df[, varNames[i]]) + mean(df[, varNames[i]])))
+          marginpctchange_b <- exp(a + coefficients[i] * (sd(df[, varNames[i]]) + mean(df[, varNames[i]]))) + 1
+          marginpctchange_c <- marginpctchange_a/marginpctchange_b
+          basepctchange_a <- exp(a + coefficients[i] * mean(df[, varNames[i]])) 
+          basepctchange_b <- exp(a + coefficients[i] * mean(df[, varNames[i]])) + 1
+          basepctchange_c <- basepctchange_a/basepctchange_b
+          marginpctchange <- marginpctchange_c - basepctchange_c
+          
+          baselinepct <-(exp(coefficients[1])/(1 + exp(coefficients[1])))
+          
+          writeLines(paste("In this regression the independent variable", varNames[i],
+                           " has a statistically significant impact on the dependent variable",
+                           "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",marginpctchange),
+                           "percentage increase in the dependent variable. All of this is based on a baseline probability of"
+                           ,sprintf("%.3f",baselinepct),"\n"))
         } else {
           for(j in 2:length(varNames)){
             if(i!=j){
@@ -239,13 +221,13 @@ interpreter <- function(df,
                          " does not have  a statistically significant relationship with the dependent variable"))
       }
     }
-
-  # } else if (modelType == "tobit") {
-  #   
-  # } else if (modelType == "multinominal probit") {
-  #   
-  # } else if (modelType == "multinominal logit") {
-  #   
+    
+    # } else if (modelType == "tobit") {
+    #   
+    # } else if (modelType == "multinominal probit") {
+    #   
+    # } else if (modelType == "multinominal logit") {
+    #   
   } else {
     writeLines("\n Unsupported model type, please try one of the followwing:
                \n - ols
@@ -258,6 +240,4 @@ interpreter <- function(df,
   if(detail == T){
     print(summary(output))
   }
-}
-
-
+  }

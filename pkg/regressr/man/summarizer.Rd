@@ -7,12 +7,11 @@
 summarizer(df)
 }
 \arguments{
-\item{df}{This is where a data frame goes}
+\item{df}{This is where a data frame goes. Not a lot of science here.}
 }
 \description{
-This function allows you to express your love of cats.
+This function gives someone a sky-in-the-eye view of the data as it looks into the structure of the data frame and gives reccomendations.
 }
 \examples{
 summarizer()
 }
-\keyword{basic}
