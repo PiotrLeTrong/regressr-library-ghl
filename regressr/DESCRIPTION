@@ -1,0 +1,18 @@
+Package: regressr
+Title: The Goss-Huang-Le Package For Kids Who Want To Regress Well And Wanna Learn To Do Other Stuff Good Too
+Version: 1.0
+Authors@R: c(person("Goss", "Justin", email = "jg1650@georgetown.edu ", role = c("aut")),
+    person("Huang", "Yixuan", email = "yh401@georgetown.edu ", role = c("aut")),
+    person("Le", "Nghia-Piotr", email = "nt28@rgeorgetown.edu", role = c("aut", "cre")))
+Description: R library dedicated to helping user build regression models, 
+	providing text output to ease interpretation of the model’s results, 
+	and optimizing model specifications. The purpose of this library is to make 
+	the process of running regression modeling and coefficient interpretation easier for those unfamiliar with regressions.
+Depends: R (>= 3.3.2)
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Imports:
+    AER,
+    digest
+RoxygenNote: 6.0.1.9000
