@@ -1,6 +1,7 @@
 rm(list = ls())
 load("/Users/piotr/Dropbox/School/Spring 2017/670 Data Sci/regressr-library-ghl/data/1.raw/footballdata.RData")
 
+
 for(i in 1:ncol(cfb.scoring)){
   if(class(cfb.scoring[[i]]) == "factor"){
     cfb.scoring[[i]] <- as.character(cfb.scoring[[i]])
@@ -28,6 +29,10 @@ package.test(c("digest", "AER"))
 
 interpreter <- function(modelType = "none",
                         df,
+
+# test test test
+interpreter <- function(df,
+                        modelType, 
                         dependentVar, 
                         independentVar, 
                         logDepen = F, 
@@ -256,8 +261,3 @@ interpreter <- function(modelType = "none",
 }
 
 
-output <- interpreter(df = cfb.scoring,
-                      modelType = "logit",
-     dependentVar = "isCal", 
-     independentVar =  c("defensive.TD", "defensive.FG"),
-     detail = T)
