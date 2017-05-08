@@ -90,6 +90,7 @@ interpreter <- function(modelType = "none",
           
         } else if (length(squareIndepend) > 0){
           if(grepl(".square", varNames[i])){
+            dropTemp <- c()
             temp <- c()
             temp <- gsub(".square", "", varNames[i])
             s <- grep(temp, varNames)
