@@ -9,10 +9,9 @@
 #' @param logIndepen Insert a string vector of independent variables that you would like to take the natural log of. Defaults to NULL.
 #' @param squareIndepend Insert a string vector of independent variables that you would like to take the square of. Defaults to NULL.
 #' @param detail Whether or not you would like to take the detailed output from the regressions.
-#' @keywords cats
-#' @export
+#' @keywords interpretation
 #' @examples
-#' 
+#' @export
 interpreter <- function(modelType = "none",
                         df,
                         dependentVar, 
@@ -237,7 +236,7 @@ interpreter <- function(modelType = "none",
                \n - multinominal probit [Coming Soon]
                \n - multinominal logit [Coming Soon]")
   }
-  if(detail == T){
-    print(summary(output))
-  }
+    if(detail == T){
+      print(summary(output))
+    }
   }
