@@ -1,5 +1,3 @@
-library("devtools")
-library(roxygen2)
 #' Find The Best Specifications
 #'
 #' @description This function searches for regression model specifications with the lowest MAPE, taking inputs of a data frame, a dependent variable, a list of potential independent variables, and a regression model.
@@ -19,6 +17,7 @@ library(roxygen2)
 #' optimizer(iris, depVar = "Sepal.Length", include = "Sepal.Width", model = "OLS") 
 #' ##Multinomial logistic model 
 #' optimizer(iris, depVar = "Species", model = "multinomial logit")
+
 
 optimizer <- function(data, depVar, indepVar = colnames(data)[colnames(data) != depVar], include = NULL, 
                       model = c("OLS", "binary probit", "binary logit", "ordered probit", "ordered logit", "multinomial logit"), 
@@ -58,7 +57,8 @@ optimizer <- function(data, depVar, indepVar = colnames(data)[colnames(data) != 
   
   #Check date/time for time series data in order to sort data for partition
   if((time.series) & is.null(timeVar)) (stop("Must enter the date/time variable for time-series analysis."))
-  if((time.series) & length(timeVar) & class(timeVar) != "Date") {
+  
+  if((time.series) & length(timeVar) & (class(data[, timeVar]) != "Date")) {
     if (grepl("\\d{4}-\\d{2}-\\d{2}", timeVar[runif(1,1,length(timeVar))], perl=TRUE) == TRUE) {
       timeVar <- as.Date(timeVar, "%Y-%mm-%dd")
       } else if (grepl("\\d{4}/\\d{2}/\\d{2}", timeVar[runif(1,1,length(timeVar))], perl=TRUE) == TRUE) {
@@ -398,7 +398,5 @@ optimizer <- function(data, depVar, indepVar = colnames(data)[colnames(data) != 
   message("Data frames with sorted specifications are stored in work space.")
 
 }
-
-
 
 
