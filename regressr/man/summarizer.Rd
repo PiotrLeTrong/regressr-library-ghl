@@ -15,3 +15,5 @@ This function gives someone a sky-in-the-eye view of the data as it looks into t
 \examples{
 summarizer()
 }
+\keyword{statistics}
+\keyword{summary}

@@ -2,7 +2,7 @@
 #'
 #' This function gives someone a sky-in-the-eye view of the data as it looks into the structure of the data frame and gives reccomendations.
 #' @param df This is where a data frame goes. Not a lot of science here. 
-#' @keywords 
+#' @keywords summary statistics
 #' @export
 #' @examples
 #' summarizer()

@@ -9,10 +9,10 @@
 #' @param logIndepen Insert a string vector of independent variables that you would like to take the natural log of. Defaults to NULL.
 #' @param squareIndepend Insert a string vector of independent variables that you would like to take the square of. Defaults to NULL.
 #' @param detail Whether or not you would like to take the detailed output from the regressions.
-#' @keywords cats
-#' @export
+#' @keywords interpretation
 #' @examples
-#' 
+#' interpreter()
+#' @export
 interpreter <- function(modelType = "none",
                         df,
                         dependentVar, 
@@ -71,22 +71,22 @@ interpreter <- function(modelType = "none",
           writeLines(paste("In this regression the independent variable", varNames[i],
                            " has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
                            "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]),
-                           "percentage increase in the dependent variable. \n"))
+                           "percentage change in the dependent variable. \n"))
         } else if (logDepen == T & length(logIndepen) == 0){
           writeLines(paste("In this regression the independent variable", varNames[i],
                            " has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
                            "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]*100),
-                           "percentage increase in the dependent variable. \n"))
+                           "change decrease in the dependent variable. \n"))
         } else if (logDepen == F & length(logIndepen) > 0){
           writeLines(paste("In this regression the independent variable", varNames[i],
                            " has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
                            "a 1 percent increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]/100),
-                           "increase in the dependent variable. \n"))
+                           "change in the dependent variable. \n"))
         } else if (logDepen == F & length(logIndepen) == 0 & length(squareIndepend) == 0 ){
           writeLines(paste("In this regression the independent variable", varNames[i],
                            " has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
                            "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]),
-                           "increase in the dependent variable. \n"))
+                           "change in the dependent variable. \n"))
           
         } else if (length(squareIndepend) > 0){
           if(grepl(".square", varNames[i])){
@@ -98,13 +98,13 @@ interpreter <- function(modelType = "none",
             writeLines(paste("In this regression the independent variable", temp,
                              " has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
                              "a 1 unit increase in the independent variable causes a ", sprintf("%.3f", finalCoeff),
-                             "increase in the dependent variable due to its squared value. \n"))
+                             "change in the dependent variable due to its squared value. \n"))
             dropTemp <- c(dropTemp, temp)
           } else if (varNames[i] == dropTemp){
             writeLines(paste("In this regression the independent variable", varNames[i],
                              " has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
                              "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]),
-                             "increase in the dependent variable. \n"))
+                             "change in the dependent variable. \n"))
             
           } else {
             writeLines(paste("In this regression the independent variable", varNames[i],
@@ -139,7 +139,7 @@ interpreter <- function(modelType = "none",
           writeLines(paste("In this regression the independent variable", varNames[i],
                            " has a statistically significant impact on the dependent variable",
                            "a 1 Standard Deviation increase in the independent variable causes a ", sprintf("%.3f",marginpctchange),
-                           "percentage increase in the dependent variable. All of this is based on a baseline probability of"
+                           "percentage change in the dependent variable. All of this is based on a baseline probability of"
                            ,sprintf("%.3f",baselinepct),"\n"))
         } else {
           for(j in 2:length(varNames)){
@@ -153,14 +153,14 @@ interpreter <- function(modelType = "none",
           writeLines(paste("In this regression the independent variable", varNames[i],
                            " has a statistically significant impact on the dependent variable",
                            "a 1 Standard Deviation increase in the independent variable causes a ", sprintf("%.3f",marginpctchange),
-                           "percentage increase in the dependent variable. All of this is based on a baseline probability of"
+                           "percentage change in the dependent variable. All of this is based on a baseline probability of"
                            ,sprintf("%.3f",baselinepct),"\n"))
           
           
         }
       } else {
         writeLines(paste("In this regression the independent variable", varNames[i],
-                         " does not have  a statistically significant relationship with the dependent variable"))
+                         " does not have a statistically significant relationship with the dependent variable"))
       }
     }
   } else if (modelType == "logit"){
@@ -192,7 +192,7 @@ interpreter <- function(modelType = "none",
           writeLines(paste("In this regression the independent variable", varNames[i],
                            " has a statistically significant impact on the dependent variable",
                            "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",marginpctchange),
-                           "percentage increase in the dependent variable. All of this is based on a baseline probability of"
+                           "percentage change in the dependent variable. All of this is based on a baseline probability of"
                            ,sprintf("%.3f",baselinepct),"\n"))
         } else {
           for(j in 2:length(varNames)){
@@ -213,7 +213,7 @@ interpreter <- function(modelType = "none",
           writeLines(paste("In this regression the independent variable", varNames[i],
                            " has a statistically significant impact on the dependent variable",
                            "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",marginpctchange * 100),
-                           "percentage increase in the dependent variable. All of this is based on a baseline probability of"
+                           "percentage change in the dependent variable. All of this is based on a baseline probability of"
                            ,sprintf("%.3f",baselinepct * 100),"\n"))
         }
       } else {
@@ -237,7 +237,7 @@ interpreter <- function(modelType = "none",
                \n - multinominal probit [Coming Soon]
                \n - multinominal logit [Coming Soon]")
   }
-  if(detail == T){
-    print(summary(output))
-  }
+    if(detail == T){
+      print(summary(output))
+    }
   }

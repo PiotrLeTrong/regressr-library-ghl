@@ -29,6 +29,6 @@ interpreter(modelType = "none", df, dependentVar, independentVar,
 This function's main use is to run regressions and then returns interpretation of the model.
 }
 \examples{
-
+interpreter()
 }
-\keyword{cats}
+\keyword{interpretation}
