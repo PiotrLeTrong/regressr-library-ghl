@@ -5,11 +5,15 @@ Create “regressr”, an R library dedicated to helping users build regression 
 
 ## Use
 Users who are not familiar with our regression methodologies can use these four functions to run regression analysis, and one function (function 5) that is an auxiliary function, but can be used outside of the context of the package.
+
 * Function 1 - summarizer: Users input a dataset. The function returns with a table of variable descriptions and summary statistics, with instructions on choosing a dependent variable and a set of independent variable(s). The function also returns instructions on choosing dependent and independent variables for regression, using accessible language for those unfamiliar with regressions.
+
 * Function 2 - dvaluator: Users input a dataset and dependent variable. The function checks the dependent variable for class and recommends an initial regression technique. For instance, if the dependent variable is binary, the function recommends a logit or probit regression as opposed to recommending OLS for a continuous dependent variable.
+
 * Function 3 - interpreter: Users input a dataset and the formula of a regression. The function runs the regression and outputs the coefficients of predictors and the model’s diagnostics, along with text interpretation for each parameter and explanations of the model’s various diagnostics. The interpretation will be based on model specifications -- log-log, lin-log, quadratics. For instance, the function could describe what a coefficient means in terms of the user’s independent and dependent variables, for example: “a one unit change in x correlates with a B unit change in y.”
 
 * Function 4 - optimizer: Users input a dependent variable and a set of potential independent variables. Function checks combinations of independent variables looking for those with the best model fit, such as the lowest error rate or highest adjusted R-squared, and outputs data frames sorted by the model fit statistic. The function also allows users to input options including what variables should be included in all specifications, whether to include quadratic terms, etc.
+
 * Function 5 - package.tester: Simple function that tests whether the R instance on the computer has certain packages and either installs them and then runs them, or simply runs them.
 
 ## Installation
@@ -51,11 +55,11 @@ interpreter <- function(modelType = "none", df, dependentVar,
 
 #### optimizer
 ```
-optimizer(df, dependentVar,
-          independentVar = colnames(df)[colnames(df) != dependentVar], include = NULL,
-          model = c("OLS", "binary probit", "binary logit", "ordered probit", "ordered logit", "multinomial logit", "multinomial probit"),
-          quadratic = NULL, cubic = NULL,
-          time.series = FALSE, time.var = NULL, save.csv = FALSE)
+optimizer(df, depVar,
+          indepVar = colnames(df)[colnames(df) != depVar], include = NULL,
+          model = c("OLS", "binary probit", "binary logit", "ordered probit", "ordered logit", "multinomial logit"),
+          time.series = FALSE, time.var = NULL, 
+          sqIndep = NULL)
 
 
 ```
