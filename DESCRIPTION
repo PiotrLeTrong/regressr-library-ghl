@@ -8,7 +8,7 @@ Description: R library dedicated to helping user build regression models,
 	providing text output to ease interpretation of the model’s results, 
 	and optimizing model specifications. The purpose of this library is to make 
 	the process of running regression modeling and coefficient interpretation easier for those unfamiliar with regressions.
-Depends: R (>= 3.3.2)
+Depends: R (>= 3.3.0)
 License: MIT
 Encoding: UTF-8
 LazyData: true

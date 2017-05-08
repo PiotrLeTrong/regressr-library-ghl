@@ -11,8 +11,11 @@
 #' @param sqIndep Any independent variable that the user wants to consider quadratic terms for in the regressions. Defaults to NULL.
 #' @keywords regressr
 #' @export
-#' @examples ##Use iris dataset ##OLS model optimizer(iris, depVar = "Sepal.Length", include = "Sepal.Width", model = "OLS") ##Multinomial logistic model optimizer(iris, depVar = "Species", model = "multinomial logit")
-#'
+#' @examples ##Use iris dataset
+#'  @examples ##OLS model 
+#'  @examples optimizer(iris, depVar = "Sepal.Length", include = "Sepal.Width", model = "OLS") 
+#' @examples Multinomial logistic model 
+#' @examples optimizer(iris, depVar = "Species", model = "multinomial logit")
 #' @
 #' optimizer()
 

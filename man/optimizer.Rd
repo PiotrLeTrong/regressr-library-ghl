@@ -30,7 +30,10 @@ optimizer(data, depVar, indepVar = colnames(data)[colnames(data) != depVar],
 This function searches for regression model specifications with the lowest MAPE, taking  the following inputs: a data frame, a dependent variable, a list of potential independent variables, and a regression model.
 }
 \examples{
-##Use iris dataset ##OLS model optimizer(iris, depVar = "Sepal.Length", include = "Sepal.Width", model = "OLS") ##Multinomial logistic model optimizer(iris, depVar = "Species", model = "multinomial logit")
-
+##Use iris dataset
+ @examples ##OLS model 
+ @examples optimizer(iris, depVar = "Sepal.Length", include = "Sepal.Width", model = "OLS") 
+Multinomial logistic model 
+optimizer(iris, depVar = "Species", model = "multinomial logit")
 }
 \keyword{regressr}
