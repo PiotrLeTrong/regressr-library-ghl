@@ -1,5 +1,5 @@
 rm(list = ls())
-load("/Users/piotr/Dropbox/School/Spring 2017/670 Data Sci/regressr-library-ghl/data/1.raw/footballdata.RData")
+load("/Users/piotr/Dropbox/School/Spring 2017/670 Data Sci/regressr-library-ghl/working_folder/data/1.raw/footballdata.RData")
 
 
 for(i in 1:ncol(cfb.scoring)){
@@ -26,9 +26,6 @@ package.test <- function(package){
 }
 
 package.test(c("digest", "AER"))
-
-interpreter <- function(modelType = "none",
-                        df,
 
 # test test test
 interpreter <- function(df,
@@ -260,4 +257,8 @@ interpreter <- function(df,
   }
 }
 
-
+output <- interpreter(df = cfb.scoring,
+                      modelType = "ols",
+                      dependentVar = "isCal", 
+                      independentVar =  c("defensive.TD", "defensive.FG"),
+                      detail = T)
