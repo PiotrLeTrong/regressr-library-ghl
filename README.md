@@ -2,28 +2,28 @@
 
 
 ## Overview/Synopsis
- Create “regressr”, an R library dedicated to helping user build regression models, providing text output to ease interpretation of the model’s results, and optimizing model specifications. The purpose of this library is to make the process of running regression modeling and coefficient interpretation easier for those unfamiliar with regressions.
+Create “regressr”, an R library dedicated to helping users build regression models, providing text output to ease interpretation of the model’s results, and optimizing model specifications. The purpose of this library is to make the process of regression modeling and coefficient interpretation easier for those unfamiliar with regressions.
 
 ## Use
-Users who are not familiar with our regression methodologies can use these four functions to run regression analysis.
-* Function 1 - summarizer: Users input a dataset. The function returns with a table of variable description and summary statistics, with instructions on choosing a dependent variable and a set of independent variable(s). The function also returns instruction on choosing dependent and independent variables for regression, using accessible language for those unfamiliar with regressions.
-* Function 2 - dvaluator: Users input a dataset and dependent variable. The function checks dependent variable for class and recommends an initial regression technique. For instance, if the dependent variable is binary, the function recommends a logit or probit regression as opposed to recommending OLS for a continuous dependent variable.
-* Function 3 - interpreter: Users input a data set and a formula of regression. The function runs the regression and outputs the coefficients of predictors and the model’s diagnostics, along with text interpretation for each parameters and explanation of the model’s various diagnostics. The interpretation will be based on model specifications -- log-log, lin-log, quadratics, VARs, etc. For instance, the function could describe what a coefficient means in terms of the user’s independent and dependent variables, for example: “a one unit change in x correlates with a B unit change in y.” Other text outputs could explain the meaning of a p-value and statistical significance, the adjusted R-squared term or the cumulative significance of the model.
-* Function 4 - optimizer: Users input a dependent variable and a set of potential independent variables. Function checks combinations of independent variables looking for those with the best model fit, such as the lowest error rate or highest adjusted R-squared, and outputs data frames sorted by the model fit stats. The function also allows users to input options including what variables should be included in all specifications, whether to include quadratic terms, etc.
+Users who are not familiar with our regression methodologies can use these four functions to run regression analysis, and one function (function 5) that is an auxiliary function, but can be used outside of the context of the package.
+* Function 1 - summarizer: Users input a dataset. The function returns with a table of variable descriptions and summary statistics, with instructions on choosing a dependent variable and a set of independent variable(s). The function also returns instructions on choosing dependent and independent variables for regression, using accessible language for those unfamiliar with regressions.
+* Function 2 - dvaluator: Users input a dataset and dependent variable. The function checks the dependent variable for class and recommends an initial regression technique. For instance, if the dependent variable is binary, the function recommends a logit or probit regression as opposed to recommending OLS for a continuous dependent variable.
+* Function 3 - interpreter: Users input a dataset and the formula of a regression. The function runs the regression and outputs the coefficients of predictors and the model’s diagnostics, along with text interpretation for each parameter and explanations of the model’s various diagnostics. The interpretation will be based on model specifications -- log-log, lin-log, quadratics, VARs, etc. For instance, the function could describe what a coefficient means in terms of the user’s independent and dependent variables, for example: “a one unit change in x correlates with a B unit change in y.” Other text outputs explain the meaning of a p-value and statistical significance, the adjusted R-squared term or the cumulative significance of the model.
+* Function 4 - optimizer: Users input a dependent variable and a set of potential independent variables. Function checks combinations of independent variables looking for those with the best model fit, such as the lowest error rate or highest adjusted R-squared, and outputs data frames sorted by the model fit statistic. The function also allows users to input options including what variables should be included in all specifications, whether to include quadratic terms, etc.
 * Function 5 - package.tester: Simple function that tests whether the R instance on the computer has certain packages and either installs them and then runs them, or simply runs them.
 
 ## Installation
- 1. First, you will need to install thee package "devtool" in order to install pacakges on github:
+ 1. First, you will need to install the package "devtool" in order to install pacakges on github:
 ```
-install.package("devtool")
+install.package("devtools")
 ```
  2. Load the devtool package:    
 ```
-    library(devtool)
+    library(devtools)
 ```
- 3. Install the regressr package using "author/pacakge":
+ 3. Install the regressr package using install_github("author/package") :
 ```
-    install_github("GeorgetownMcCourt/regressr")
+    install_github("GeorgetownMcCourt/regressr-library-ghl")
 ```
  4. Load the regressr package to use it:
  ```
@@ -31,7 +31,7 @@ install.package("devtool")
  ```
 
 ## Usage
-Note: If you're providing a new package or software, provide examples of how to use your code (example: https://github.com/CommerceDataService/eu.us.opendata). If you're providing an analytical output, describe what goes on each file or how to run it.
+
 #### summarizer
 ```
 summarizer(df)
@@ -68,6 +68,7 @@ package.tester(package)
  * Built a mock dataset, 4/15/2017
      * Created code that generates a dataset, 4/15/2017
      * Added more variable types to check code robustntess. 4/22/2017
+     * Ready, 4/27/2017
  * Function 1 - summarizer
      * Started, 4/15/2017
      * Basic Code Structure Finalized, 4/19/2017
@@ -76,6 +77,7 @@ package.tester(package)
      * Ready, 5/7/2017
  * Function 2 - possibleModels
      * Started, 4/15/2017
+     * Ready, 5/7/2017
  * Function 3 - interpreter started
      * Started, 4/22/2017
      * Ready, 5/7/2017
