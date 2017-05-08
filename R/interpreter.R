@@ -69,23 +69,23 @@ interpreter <- function(modelType = "none",
       if(pVal[i] < 1.95){
         if(logDepen == T & length(logIndepen) > 0){
           writeLines(paste("In this regression the independent variable", varNames[i],
-                           " has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
-                           "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]),
+                           "has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
+                           "a 1 unit increase in the independent variable causes a", sprintf("%.3f",coefficients[i]),
                            "percentage change in the dependent variable. \n"))
         } else if (logDepen == T & length(logIndepen) == 0){
           writeLines(paste("In this regression the independent variable", varNames[i],
-                           " has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
-                           "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]*100),
+                           "has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
+                           "a 1 unit increase in the independent variable causes a", sprintf("%.3f",coefficients[i]*100),
                            "change decrease in the dependent variable. \n"))
         } else if (logDepen == F & length(logIndepen) > 0){
           writeLines(paste("In this regression the independent variable", varNames[i],
-                           " has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
-                           "a 1 percent increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]/100),
+                           "has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
+                           "a 1 percent increase in the independent variable causes a", sprintf("%.3f",coefficients[i]/100),
                            "change in the dependent variable. \n"))
         } else if (logDepen == F & length(logIndepen) == 0 & length(squareIndepend) == 0 ){
           writeLines(paste("In this regression the independent variable", varNames[i],
-                           " has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
-                           "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]),
+                           "has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
+                           "a 1 unit increase in the independent variable causes a", sprintf("%.3f",coefficients[i]),
                            "change in the dependent variable. \n"))
           
         } else if (length(squareIndepend) > 0){
@@ -96,14 +96,14 @@ interpreter <- function(modelType = "none",
             s <- s[2]
             finalCoeff <- 2*coefficients[i] + coefficients[s]
             writeLines(paste("In this regression the independent variable", temp,
-                             " has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
-                             "a 1 unit increase in the independent variable causes a ", sprintf("%.3f", finalCoeff),
+                             "has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
+                             "a 1 unit increase in the independent variable causes a", sprintf("%.3f", finalCoeff),
                              "change in the dependent variable due to its squared value. \n"))
             dropTemp <- c(dropTemp, temp)
           } else if (varNames[i] == dropTemp){
             writeLines(paste("In this regression the independent variable", varNames[i],
-                             " has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
-                             "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",coefficients[i]),
+                             "has a statistically significant relationship (at a 95% level of confidence) with the dependent variable",
+                             "a 1 unit increase in the independent variable causes a", sprintf("%.3f",coefficients[i]),
                              "change in the dependent variable. \n"))
             
           } else {
@@ -137,8 +137,8 @@ interpreter <- function(modelType = "none",
           marginpctchange <-pnorm(a + coefficients[i] * (1 * mean(df[, varNames[i]]))) - pnorm(coefficients[i] * (0 *mean(df[, varNames[i]])))
           baselinepct <- pnorm(coefficients[1])
           writeLines(paste("In this regression the independent variable", varNames[i],
-                           " has a statistically significant impact on the dependent variable",
-                           "a 1 Standard Deviation increase in the independent variable causes a ", sprintf("%.3f",marginpctchange),
+                           "has a statistically significant impact on the dependent variable",
+                           "a 1 Standard Deviation increase in the independent variable causes a", sprintf("%.3f",marginpctchange),
                            "percentage change in the dependent variable. All of this is based on a baseline probability of"
                            ,sprintf("%.3f",baselinepct),"\n"))
         } else {
@@ -151,8 +151,8 @@ interpreter <- function(modelType = "none",
           
           baselinepct <- pnorm(coefficients[1])
           writeLines(paste("In this regression the independent variable", varNames[i],
-                           " has a statistically significant impact on the dependent variable",
-                           "a 1 Standard Deviation increase in the independent variable causes a ", sprintf("%.3f",marginpctchange),
+                          "has a statistically significant impact on the dependent variable",
+                           "a 1 Standard Deviation increase in the independent variable causes a", sprintf("%.3f",marginpctchange),
                            "percentage change in the dependent variable. All of this is based on a baseline probability of"
                            ,sprintf("%.3f",baselinepct),"\n"))
           
@@ -190,8 +190,8 @@ interpreter <- function(modelType = "none",
           baselinepct <-(exp(coefficients[1])/(1 + exp(coefficients[1])))
           
           writeLines(paste("In this regression the independent variable", varNames[i],
-                           " has a statistically significant impact on the dependent variable",
-                           "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",marginpctchange),
+                           "has a statistically significant impact on the dependent variable",
+                           "a 1 unit increase in the independent variable causes a", sprintf("%.3f",marginpctchange),
                            "percentage change in the dependent variable. All of this is based on a baseline probability of"
                            ,sprintf("%.3f",baselinepct),"\n"))
         } else {
@@ -211,8 +211,8 @@ interpreter <- function(modelType = "none",
           baselinepct <-(exp(coefficients[1])/(1 + exp(coefficients[1])))
           
           writeLines(paste("In this regression the independent variable", varNames[i],
-                           " has a statistically significant impact on the dependent variable",
-                           "a 1 unit increase in the independent variable causes a ", sprintf("%.3f",marginpctchange * 100),
+                           "has a statistically significant impact on the dependent variable",
+                           "a 1 unit increase in the independent variable causes a", sprintf("%.3f",marginpctchange * 100),
                            "percentage change in the dependent variable. All of this is based on a baseline probability of"
                            ,sprintf("%.3f",baselinepct * 100),"\n"))
         }
