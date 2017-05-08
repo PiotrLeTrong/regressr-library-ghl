@@ -1,23 +1,24 @@
+library("devtools")
+library(roxygen2)
 #' Find The Best Specifications
 #'
-#' @description This function searches for regression model specifications with the lowest MAPE, taking  the following inputs: a data frame, a dependent variable, a list of potential independent variables, and a regression model.
-#' @param data Data Frame 
-#' @param depVar Dependent Variable 
-#' @param indepVar a list of independent variables the subsets of which the dependent variable will be regressed on. Default is all variables in the data frame except for the dependent variable.
-#' @param include a list of independent variables that the user wants to include in all regressions.
+#' @description This function searches for regression model specifications with the lowest MAPE, taking inputs of a data frame, a dependent variable, a list of potential independent variables, and a regression model.
+#' @param data a data frame 
+#' @param depVar a dependent variable 
+#' @param indepVar a list of independent variables the subsets of which the dependent variable will be regressed on. Defaul is all variables in the data frame but the dependent variable.
+#' @param include a list of independent variables included in all regressions
 #' @param model regression model to estimate, including "OLS", "binary probit", "binary logit", "ordered probit", "ordered logit", "multinomial probit", "multinomial logit"
-#' @param time.series Logical Variable.  This is used to decide the partition process. Defaults to FALSE.
-#' @param timeVar Insert the time series variable. Defaults to NULL.
-#' @param sqIndep Any independent variable that the user wants to consider quadratic terms for in the regressions. Defaults to NULL.
+#' @param time.series logical. This is used to decide the partition process.
+#' @param timeVar the time series variable
+#' @param sqIndep any variables in the independent variable list to consider quadratic terms in the regressions
 #' @keywords regressr
 #' @export
-#' @examples ##Use iris dataset
-#'  @examples ##OLS model 
-#'  @examples optimizer(iris, depVar = "Sepal.Length", include = "Sepal.Width", model = "OLS") 
-#' @examples Multinomial logistic model 
-#' @examples optimizer(iris, depVar = "Species", model = "multinomial logit")
-#' @
-#' optimizer()
+#' @examples 
+#' ##Use iris dataset 
+#' ##OLS model 
+#' optimizer(iris, depVar = "Sepal.Length", include = "Sepal.Width", model = "OLS") 
+#' ##Multinomial logistic model 
+#' optimizer(iris, depVar = "Species", model = "multinomial logit")
 
 optimizer <- function(data, depVar, indepVar = colnames(data)[colnames(data) != depVar], include = NULL, 
                       model = c("OLS", "binary probit", "binary logit", "ordered probit", "ordered logit", "multinomial logit"), 
@@ -59,17 +60,17 @@ optimizer <- function(data, depVar, indepVar = colnames(data)[colnames(data) != 
   if((time.series) & is.null(timeVar)) (stop("Must enter the date/time variable for time-series analysis."))
   if((time.series) & length(timeVar) & class(timeVar) != "Date") {
     if (grepl("\\d{4}-\\d{2}-\\d{2}", timeVar[runif(1,1,length(timeVar))], perl=TRUE) == TRUE) {
-      timeVar <- as.Date(timeVar, "%Y-%m-%d")
+      timeVar <- as.Date(timeVar, "%Y-%mm-%dd")
       } else if (grepl("\\d{4}/\\d{2}/\\d{2}", timeVar[runif(1,1,length(timeVar))], perl=TRUE) == TRUE) {
-        timeVar <- as.Date(timeVar, "%Y/%m/%d")
+        timeVar <- as.Date(timeVar, "%Y/%mm/%dd")
       } else if(grepl("\\d{2}-\\d{2}-\\d{2}", timeVar[runif(1,1,length(timeVar))], perl=TRUE) == TRUE) {
-        timeVar <- as.Date(timeVar, "%y/%m/%d")
+        timeVar <- as.Date(timeVar, "%y/%mm/%dd")
       } else if (grepl("\\d{1,2}\\w{3, }\\d{4}", timeVar[runif(1,1,length(timeVar))], perl=TRUE) == TRUE) {
         timeVar <- as.Date(timeVar, "%d%b%Y")
       } else if (grepl("\\d{4}-\\d{2}-\\d{2}\\s+\\d{2}:\\d{2}:\\d{2}", timeVar[runif(1,1,length(timeVar))], perl=TRUE) == TRUE) {
-        timeVar <- as.Date(timeVar, "%Y-%m-%d %H:%M:%S")
+        timeVar <- as.Date(timeVar, "%Y-%mm-%dd %H:%M:%S")
       } else if (grepl("\\d{4}/\\d{2}/\\d{2}\\s+\\d{2}:\\d{2}:\\d{2}", timeVar[runif(1,1,length(timeVar))], perl=TRUE) == TRUE) {
-        timeVar <- as.Date(timeVar, "%Y/%m/%d %H:%M:%S")
+        timeVar <- as.Date(timeVar, "%Y/%mm/%dd %H:%M:%S")
       } else {
         stop("Please transfrom the time variable to date format.")
       }

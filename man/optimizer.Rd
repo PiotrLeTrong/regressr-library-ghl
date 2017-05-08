@@ -10,30 +10,30 @@ optimizer(data, depVar, indepVar = colnames(data)[colnames(data) != depVar],
   time.series = FALSE, timeVar = NULL, sqIndep = NULL)
 }
 \arguments{
-\item{data}{Data Frame}
+\item{data}{a data frame}
 
-\item{depVar}{Dependent Variable}
+\item{depVar}{a dependent variable}
 
-\item{indepVar}{a list of independent variables the subsets of which the dependent variable will be regressed on. Default is all variables in the data frame except for the dependent variable.}
+\item{indepVar}{a list of independent variables the subsets of which the dependent variable will be regressed on. Defaul is all variables in the data frame but the dependent variable.}
 
-\item{include}{a list of independent variables that the user wants to include in all regressions.}
+\item{include}{a list of independent variables included in all regressions}
 
 \item{model}{regression model to estimate, including "OLS", "binary probit", "binary logit", "ordered probit", "ordered logit", "multinomial probit", "multinomial logit"}
 
-\item{time.series}{Logical Variable.  This is used to decide the partition process. Defaults to FALSE.}
+\item{time.series}{logical. This is used to decide the partition process.}
 
-\item{timeVar}{Insert the time series variable. Defaults to NULL.}
+\item{timeVar}{the time series variable}
 
-\item{sqIndep}{Any independent variable that the user wants to consider quadratic terms for in the regressions. Defaults to NULL.}
+\item{sqIndep}{any variables in the independent variable list to consider quadratic terms in the regressions}
 }
 \description{
-This function searches for regression model specifications with the lowest MAPE, taking  the following inputs: a data frame, a dependent variable, a list of potential independent variables, and a regression model.
+This function searches for regression model specifications with the lowest MAPE, taking inputs of a data frame, a dependent variable, a list of potential independent variables, and a regression model.
 }
 \examples{
-##Use iris dataset
- @examples ##OLS model 
- @examples optimizer(iris, depVar = "Sepal.Length", include = "Sepal.Width", model = "OLS") 
-Multinomial logistic model 
+##Use iris dataset 
+##OLS model 
+optimizer(iris, depVar = "Sepal.Length", include = "Sepal.Width", model = "OLS") 
+##Multinomial logistic model 
 optimizer(iris, depVar = "Species", model = "multinomial logit")
 }
 \keyword{regressr}
